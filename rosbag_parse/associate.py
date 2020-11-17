@@ -148,14 +148,16 @@ def load_images_rename_store(file_data, input_folder, output_folder):
 
 if __name__ == '__main__':
 
-    DATA_ROOT = "/home/hongkai/disk/datasets/803/k4a_data/20200707/change2/02"
-    rgb_txt = os.path.join(DATA_ROOT, "rgb.txt")
-    depth_txt = os.path.join(DATA_ROOT, "depth.txt")
+    DATA_ROOT = sys.argv[1]
+    rgb_txt = os.path.join(DATA_ROOT, "raw/rgb.txt")
+    depth_txt = os.path.join(DATA_ROOT, "raw/depth.txt")
     offset = 0.012
     max_diff = 0.1
 
     input_path = os.path.join(DATA_ROOT, "raw")
     output_path = os.path.join(DATA_ROOT, "matched")
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
     associate_txt = os.path.join(DATA_ROOT, "associate.txt")
 
     rgb_list = read_file_list(rgb_txt)

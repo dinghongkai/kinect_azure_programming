@@ -45,18 +45,19 @@ char successed_flag1 = 0, successed_flag2 = 0;
 string topic1_name = "/rgb/image_raw";
 string topic2_name = "/depth_to_rgb/image_raw";
 
-string rgb_txt = "/home/hongkai/disk/datasets/803/k4a_data/20200707/change2/02/rgb.txt";
-string depth_txt = "/home/hongkai/disk/datasets/803/k4a_data/20200707/change2/02/depth.txt";
-string rgb_path = "//home/hongkai/disk/datasets/803/k4a_data/20200707/change2/02/raw/rgb/";
-string depth_path = "/home/hongkai/disk/datasets/803/k4a_data/20200707/change2/02/raw/depth/";
-
 void dispDepth(const cv::Mat &in, cv::Mat &out, const float maxValue);
 void callback_function_color( const sensor_msgs::Image::ConstPtr  image_data);
 void callback_function_depth( const sensor_msgs::Image::ConstPtr  image_data);
 
 
-int main(int argc,char** argv)
+int main(int argc, char** argv)
 {
+    string path = argv[1];
+    string rgb_txt = path + "/raw/rgb.txt";
+    string depth_txt = path + "/raw/depth.txt";
+    string rgb_path = path + "/raw/rgb/";
+    string depth_path = path + "/raw/depth/";
+
     string out_result;
 
     ros::init(argc, argv, "k4a_image");

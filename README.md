@@ -11,13 +11,15 @@ rosbag record -O xxx.bag /depth_to_rgb/image_raw /rgb/image_raw
 ```
 
 ### parse rosbag
-1. extract the timestamp, rgb image & depth image from the rosbag file, save the info into .txt file
-
-- first, run the command 
+1. put the directory `save_rgbd_from_k4a` into `~/catkin_ws/src`, then compile `catkin_make`;
+2. run `roscore` to start ROS_MASTER server;
+3. run `run.sh $path` to create directory and .txt files and start `save_rgbd_from_k4a` node (for example, we set the path as `~/001` here)
 ```bash
-rosrun save_rgbd_from_k4a save_rgbd_from_k4a
+bash run.sh ~/001
 ```
-- then, run the rosbag play command
+this node extracts the timestamp, rgb image & depth image from the rosbag file, saves the info into .txt file
+
+4. then, run the rosbag play command
 ```bash
 # -r: specify the play speed
 rosbag play xxx.bag -r 0.5
@@ -40,9 +42,9 @@ k4a_result_t K4AROSDevice::renderDepthToROS(sensor_msgs::ImagePtr& depth_image, 
   return K4A_RESULT_SUCCEEDED;
 }
 ```
-
-2. associate the rgb image and depth image according to the timestamp, generate the associate.txt file, find the corresponding rgb & depth, rename and copy them into the **matched** folder 
+### data association
+associate the rgb image and depth image according to the timestamp, generate the associate.txt file, find the corresponding rgb & depth, rename and copy them into the **matched** folder 
 ```bash
-python3 associate.py
+python3 associate.py ~/001
 ```
 Note: this is modified according to TUM RGB-D Benchmark [associate.py](https://svncvpr.in.tum.de/cvpr-ros-pkg/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/associate.py)
